@@ -144,7 +144,11 @@ public class ConnectedState extends StopableStateWithCallback {
 					    mConnection.setError(new Exception("Error when calling endpoint."));
 						mConnection.SetNewState(new ReconnectingState(mConnection));
                		}
-            	}
+            	}catch (Exception ex)
+		{
+					mConnection.setError(ex);
+					mConnection.SetNewState(new ReconnectingState(mConnection));
+		}
             	finally
             	{
 					mIsRunning.set(false);
